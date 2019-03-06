@@ -18,15 +18,16 @@ public class MainActivity extends AppCompatActivity {
     private void countDown(){
         final TextView textView2 =findViewById(R.id.textView2);
         final Handler handler=new Handler();
-        Handler.post(new Runnable() {
+        handler.post(new Runnable() {
             @Override
             public void run() {
                 textView2.setText(Integer.toString(counter));
                 counter--;
-                handler.PostDelayed(this,1000);
+                handler.postDelayed(this,1000
+                );
 
             }
-        })
+        });
 
 
     }
