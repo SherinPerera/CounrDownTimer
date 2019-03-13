@@ -3,6 +3,7 @@ package com.example.counrdowntimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState != null){
             countDown=savedInstanceState.getInt(CURRENT_COUNTER);
         }
-        running=true;
+        //Running true  (this statement auto runs the app )
         countDown();
     }
     @Override
@@ -39,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 if(countDown == 0){
                     countDown = 99;
                 }
-                countDown--;
-                handler.postDelayed(this,1000
-                );
+                if(running) {
+                    countDown--;
+                }
+                handler.postDelayed(this,1000);
 
             }
         });
@@ -49,9 +51,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    protected  void startCounter(View view){
+        running = true;
+    }
+
+    protected  void StopCounter(View view){
+        running = false;
+    }
+
+
+    @Override
+    public  void onPause(){
+        super.onPause();
+    }
+
+
+    //these two methods are used to keep going the calculations as it is when going back and comming front
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        running = true;
+    }
+
     @Override
     public void  onStop(){
         super.onStop();
-        wasRunning =true;
+            running =false;
     }
 }
